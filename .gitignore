@@ -32,6 +32,9 @@ bower_components
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
+# Assets directories
+src/assets/
+
 # Dependency directories
 node_modules/
 jspm_packages/
@@ -44,6 +47,10 @@ typings/
 
 # Optional eslint cache
 .eslintcache
+.eslintrc.js
+
+# Prettier config file
+.prettierrc
 
 # Optional REPL history
 .node_repl_history
@@ -65,5 +72,6 @@ public
 yarn-error.log
 .pnp/
 .pnp.js
+
 # Yarn Integrity file
 .yarn-integrity
