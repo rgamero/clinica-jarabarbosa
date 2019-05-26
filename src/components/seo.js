@@ -8,35 +8,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { useStaticQuery, graphql } from 'gatsby';
+import useSiteMetadata from '../hooks/useSiteMetadata';
 
 function SEO({ description, lang, meta, title }) {
-  const { site } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-          }
-        }
-      }
-    `
-  );
-
-  const metaDescription = description || site.siteMetadata.description;
+  const metaData = useSiteMetadata();
+  const metaDescription = description || metaData.description;
 
   return (
     <Helmet
       htmlAttributes={{
         lang,
-        itemscope: undefined,
         itemtype: `http://schema.org/Product`,
         prefix: 'og: http://ogp.me/ns#'
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${metaData.title}`}
       link={[
         { rel: 'canonical', href: '' },
         { name: 'viewport', content: 'width=device-width, maximum-scale=1' }
@@ -69,7 +55,7 @@ function SEO({ description, lang, meta, title }) {
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author
+          content: metaData.author
         },
         {
           name: `twitter:title`,
