@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Container from '../utils/Container';
 
-const Header = ({ siteTitle }) => (
+const Header = ({ siteTitle, toggleMenu }) => (
   <header
     style={{
       background: `rebeccapurple`,
@@ -22,6 +22,9 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
+      <button type="button" onClick={toggleMenu}>
+        Menu
+      </button>
     </Container>
   </header>
 );

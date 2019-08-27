@@ -1,33 +1,27 @@
-import React, { useEffect } from 'react';
-import { Link } from 'gatsby';
+import React, { Fragment } from 'react';
+import AniLink from 'gatsby-plugin-transition-link/AniLink';
 
+// Utils
+import Container from '../utils/Container';
+
+// Components
 import Layout from '../components/layout';
-import Image from '../components/image';
+import Logo from '../components/Logo';
 import SEO from '../components/seo';
-import useWindowWidth from '../hooks/useWindowWidth';
 
 const IndexPage = () => {
-  const { width, handleResize } = useWindowWidth();
-
-  useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
   return (
-    <Layout>
+    <Fragment>
       <SEO title="Home" />
-      <h1>Hi</h1>
-      <p>Welcome to your new Gatsby site.</p>
-      <p>Now go build something great.</p>
-      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-        <Image />
-      </div>
-      <h2>{width}</h2>
-      <Link to="/page-2/">Go to page 2</Link>
-    </Layout>
+      <Layout>
+        <Container main>
+          <Logo />
+          <AniLink paintDrip to="/page-2" hex="#663399" duration={0.8}>
+            Go to Page 2
+          </AniLink>
+        </Container>
+      </Layout>
+    </Fragment>
   );
 };
 
