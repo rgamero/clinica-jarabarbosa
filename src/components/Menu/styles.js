@@ -5,7 +5,7 @@ export const MenuNav = styled.nav`
   flex-flow: column nowrap;
   align-items: center;
   position: fixed;
-  top: -${props => props.theme.vh};
+  transform: translateY(-${props => props.theme.vh});
   min-height: -webkit-fill-available;
   height: ${props => props.theme.vh};
   width: ${props => props.theme.vw};
@@ -34,4 +34,5 @@ export const MenuItem = styled.li`
   line-height: 6rem;
   opacity: 0;
   transform: translateY(-2.5rem);
+  cursor: pointer;
 `;

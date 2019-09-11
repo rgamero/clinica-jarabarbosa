@@ -6,7 +6,9 @@ const AppProvider = ({ children }) => {
   const [state, setState] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
-    toggleMenuState: null
+    toggleMenuState: null,
+    prevScrollpos: window.pageYOffset,
+    visible: true
   });
 
   return (

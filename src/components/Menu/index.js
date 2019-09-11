@@ -1,18 +1,16 @@
 import React from 'react';
 import { MenuNav, MenuContainer, MenuList, MenuItem } from './styles';
 
-const Menu = ({ menuRef, item1, item2, item3, item4, toggleMenu }) => (
+const Menu = ({ menuRef, menuLinks }) => (
   <MenuNav ref={menuRef}>
     <MenuContainer>
       <MenuList>
-        <MenuItem ref={item1}>Servicios</MenuItem>
-        <MenuItem ref={item2}>Amparo</MenuItem>
-        <MenuItem ref={item3}>Manuela</MenuItem>
-        <MenuItem ref={item4}>Juemadre</MenuItem>
+        {menuLinks.map(link => (
+          <MenuItem key={link.id} ref={link.ref} onClick={link.action.toScroll}>
+            {link.name}
+          </MenuItem>
+        ))}
       </MenuList>
-      <button type="button" onClick={toggleMenu}>
-        Menu
-      </button>
     </MenuContainer>
   </MenuNav>
 );
