@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { TweenLite } from 'gsap';
-import 'gsap/ScrollToPlugin';
+import TweenLite from 'TweenLite';
+import 'ScrollToPlugin';
 import { AppContext } from '../context';
 
 const useLinkClick = ref => {

@@ -11,7 +11,11 @@ import SEO from '../components/seo';
 
 const Section = styled.section`
   min-height: 100vh;
-  background-color: ${props => props.color};
+  background: linear-gradient(-45deg, #ffffff, #ffbbb6, #f8d1dc, #fcece9);
+  background-size: 400% 400%;
+  background-attachment: fixed;
+  background-position: ${props => props.theme.bgPosition};
+  transition: background-position 0.5s ease-out;
 `;
 
 const IndexPage = () => {
@@ -24,15 +28,14 @@ const IndexPage = () => {
     <Fragment>
       <SEO title="Home" />
       <Layout refS2={section2} refS3={section3} refS4={section4}>
-        <Section color="transparent">
+        <Section>
           <Container main>
             <Logo />
           </Container>
         </Section>
-        <Section color="red" />
-        <Section ref={section2} color="blue" />
-        <Section ref={section3} color="yellow" />
-        <Section ref={section4} color="pink" />
+        <Section ref={section2} />
+        <Section ref={section3} />
+        <Section ref={section4} />
       </Layout>
     </Fragment>
   );

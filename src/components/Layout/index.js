@@ -9,7 +9,9 @@ import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { ThemeProvider } from 'styled-components';
-import { TimelineMax, TweenMax, TweenLite } from 'gsap';
+import TweenLite from 'TweenLite';
+import TweenMax from 'TweenMax';
+import TimelineMax from 'TimelineMax';
 
 // Utils
 import Container from '../../utils/Container';
@@ -28,7 +30,7 @@ import Menu from '../Menu';
 import GlobalStyle, { HeaderContainer } from './globalStyle';
 import './layout.css';
 
-const websiteTheme = (height, width, menuOn) => {
+const websiteTheme = (height, width, menuOn, bgAnim) => {
   return {
     fontRegular: 'Coco Reg',
     fontBold: 'Coco Bold',
@@ -36,7 +38,10 @@ const websiteTheme = (height, width, menuOn) => {
     secondaryColor: '#4dbdc6',
     vh: `${height}px`,
     vw: `${width}px`,
-    ...(menuOn && { overflow: 'hidden' })
+    ...(menuOn && { overflow: 'hidden' }),
+    ...(bgAnim === 'bgAnim1' && { bgPosition: '0% 50%' }),
+    ...(bgAnim === 'bgAnim2' && { bgPosition: '100% 50%' }),
+    ...(bgAnim === 'bgAnim3' && { bgPosition: '100% 100%' })
   };
 };
 
@@ -56,6 +61,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   // State Hooks
   const [menuAnim, setMenuAnim] = useState(null);
   const [activeAnim, setMenuToggle] = useState(false);
+  const [bgAnim, setBgAnim] = useState(null);
 
   // Custom Hooks
   const { height, width, handleResize } = useWindowSizes();
@@ -63,6 +69,10 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
   const { handleResetMenuToggle } = useResetMenuToggle();
 
+  const scrollTop =
+    window.pageYOffset ||
+    document.documentElement.scrollTop ||
+    document.body.scrollTop;
   const tlMenu = new TimelineMax({ paused: true });
   const menuOn = toggleMenuState === 'on';
   const links = [
@@ -193,6 +203,18 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     };
   });
 
+  useEffect(() => {
+    if (scrollTop >= 0 && scrollTop <= height) {
+      setBgAnim(null);
+    } else if (scrollTop >= height && scrollTop <= height * 2) {
+      setBgAnim('bgAnim1');
+    } else if (scrollTop > height * 2 && scrollTop <= height * 3) {
+      setBgAnim('bgAnim2');
+    } else if (scrollTop > height * 3 && scrollTop <= height * 4) {
+      setBgAnim('bgAnim3');
+    }
+  });
+
   useLayoutEffect(() => {
     if (menuOn && activeAnim) {
       menuAnim.play().timeScale(1);
@@ -213,7 +235,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
         }
       `}
       render={data => (
-        <ThemeProvider theme={websiteTheme(height, width, menuOn)}>
+        <ThemeProvider theme={websiteTheme(height, width, menuOn, bgAnim)}>
           <>
             <GlobalStyle />
             <HeaderContainer>
@@ -224,6 +246,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
                 menuLinks={links}
               />
               <Header
+                bgAnim={bgAnim}
                 visible={visible}
                 siteTitle={data.site.siteMetadata.title}
                 menuIcon={

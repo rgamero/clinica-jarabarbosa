@@ -10,7 +10,15 @@ export const MenuNav = styled.nav`
   height: ${props => props.theme.vh};
   width: ${props => props.theme.vw};
   z-index: -1;
-  background-color: ${props => props.theme.secondaryColor};
+  background: linear-gradient(
+    -45deg,
+    #fff,
+    ${props => props.theme.secondaryColor},
+    #a4d8dd,
+    #d2f2f5
+  );
+  background-size: 400% 400%;
+  background-position: center;
 `;
 
 export const MenuContainer = styled.div`
