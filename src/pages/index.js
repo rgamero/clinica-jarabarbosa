@@ -1,22 +1,22 @@
 import React, { Fragment, useRef } from 'react';
-import styled from 'styled-components';
 
 // Utils
 import Container from '../utils/Container';
 
 // Components
+import { Section } from '../components/Layout/globalStyle';
 import Layout from '../components/Layout';
 import Logo from '../components/Logo';
 import SEO from '../components/seo';
-
-const Section = styled.section`
-  min-height: 100vh;
-  background: linear-gradient(-45deg, #ffffff, #ffbbb6, #f8d1dc, #fcece9);
-  background-size: 400% 400%;
-  background-attachment: fixed;
-  background-position: ${props => props.theme.bgPosition};
-  transition: background-position 0.5s ease-out;
-`;
+import BioSection from '../components/BioSection';
+import {
+  Crown,
+  Filling,
+  Implant,
+  Orthodontics,
+  Revision,
+  RootCanal
+} from '../components/Icons';
 
 const IndexPage = () => {
   // Section refs
@@ -33,8 +33,15 @@ const IndexPage = () => {
             <Logo />
           </Container>
         </Section>
-        <Section ref={section2} />
-        <Section ref={section3} />
+        <BioSection innerRef={section2} />
+        <Section ref={section3}>
+          <Crown />
+          <Implant />
+          <Orthodontics />
+          <RootCanal />
+          <Filling />
+          <Revision />
+        </Section>
         <Section ref={section4} />
       </Layout>
     </Fragment>

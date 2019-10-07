@@ -5,11 +5,10 @@ export const MenuNav = styled.nav`
   flex-flow: column nowrap;
   align-items: center;
   position: fixed;
-  transform: translateY(-${props => props.theme.vh});
+  will-change: transform;
   min-height: -webkit-fill-available;
   height: ${props => props.theme.vh};
   width: ${props => props.theme.vw};
-  z-index: -1;
   background: linear-gradient(
     -45deg,
     #fff,
@@ -18,7 +17,7 @@ export const MenuNav = styled.nav`
     #d2f2f5
   );
   background-size: 400% 400%;
-  background-position: center;
+  transition: background-position 0.5s ease-out;
 `;
 
 export const MenuContainer = styled.div`
@@ -43,4 +42,5 @@ export const MenuItem = styled.li`
   opacity: 0;
   transform: translateY(-2.5rem);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 `;

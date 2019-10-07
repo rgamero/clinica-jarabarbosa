@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { isMobile } from 'react-device-detect';
 import { AppContext } from '../context';
 
 const useHideHeader = () => {
@@ -7,7 +8,7 @@ const useHideHeader = () => {
   // Window scroll handler
   const handleScroll = () => {
     const currentScrollPos = window.pageYOffset;
-    const visible = state.prevScrollpos > currentScrollPos;
+    const visible = state.prevScrollpos > currentScrollPos || isMobile;
     setState(state => ({ ...state, prevScrollpos: currentScrollPos, visible }));
   };
 

@@ -27,10 +27,14 @@ import useLinkClick from '../../hooks/useLinkClick';
 import Header from '../Header';
 import IconMenu from '../IconMenu';
 import Menu from '../Menu';
-import GlobalStyle, { HeaderContainer } from './globalStyle';
+import GlobalStyle, {
+  Background,
+  HeaderContainer,
+  HeaderBg
+} from './globalStyle';
 import './layout.css';
 
-const websiteTheme = (height, width, menuOn, bgAnim) => {
+const websiteTheme = (height, width, menuOn) => {
   return {
     fontRegular: 'Coco Reg',
     fontBold: 'Coco Bold',
@@ -38,10 +42,7 @@ const websiteTheme = (height, width, menuOn, bgAnim) => {
     secondaryColor: '#4dbdc6',
     vh: `${height}px`,
     vw: `${width}px`,
-    ...(menuOn && { overflow: 'hidden' }),
-    ...(bgAnim === 'bgAnim1' && { bgPosition: '0% 50%' }),
-    ...(bgAnim === 'bgAnim2' && { bgPosition: '100% 50%' }),
-    ...(bgAnim === 'bgAnim3' && { bgPosition: '100% 100%' })
+    ...(menuOn && { overflow: 'hidden' })
   };
 };
 
@@ -78,7 +79,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   const links = [
     {
       id: 1,
-      name: 'Amparo',
+      name: 'Nosotras',
       ref: el => {
         link1 = el;
       },
@@ -86,7 +87,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     },
     {
       id: 2,
-      name: 'Manuela',
+      name: 'Servicios',
       ref: el => {
         link2 = el;
       },
@@ -94,7 +95,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     },
     {
       id: 3,
-      name: 'Servicios',
+      name: 'Ubicación',
       ref: el => {
         link3 = el;
       },
@@ -119,11 +120,19 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     setMenuAnim(
       tlMenu
         .add(
-          TweenLite.to(menuRef, 0.5, {
-            zIndex: 20,
-            y: 0,
-            ease: 'Power4.easeOut'
-          })
+          TweenMax.fromTo(
+            menuRef,
+            0.5,
+            {
+              yPercent: -100
+            },
+            {
+              yPercent: 0,
+              backgroundPosition: '50% 50%',
+              force3D: true,
+              ease: 'Power4.easeOut'
+            }
+          )
         )
         .add(
           TweenMax.staggerTo([link1, link2, link3, link4], 0.5, {
@@ -206,12 +215,10 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   useEffect(() => {
     if (scrollTop >= 0 && scrollTop <= height) {
       setBgAnim(null);
-    } else if (scrollTop >= height && scrollTop <= height * 2) {
-      setBgAnim('bgAnim1');
-    } else if (scrollTop > height * 2 && scrollTop <= height * 3) {
-      setBgAnim('bgAnim2');
-    } else if (scrollTop > height * 3 && scrollTop <= height * 4) {
-      setBgAnim('bgAnim3');
+    } else if (scrollTop > height * 2 && scrollTop <= height * 4) {
+      setBgAnim('bgAnim');
+    } else {
+      setBgAnim(null);
     }
   });
 
@@ -238,16 +245,10 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
         <ThemeProvider theme={websiteTheme(height, width, menuOn, bgAnim)}>
           <>
             <GlobalStyle />
-            <HeaderContainer>
-              <Menu
-                menuRef={el => {
-                  menuRef = el;
-                }}
-                menuLinks={links}
-              />
+            <Background bgAnim={bgAnim} />
+            <HeaderContainer visible={visible}>
+              <HeaderBg bgAnim={bgAnim} />
               <Header
-                bgAnim={bgAnim}
-                visible={visible}
                 siteTitle={data.site.siteMetadata.title}
                 menuIcon={
                   <IconMenu
@@ -269,6 +270,12 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
                     toggleMenu={handleMenuToggle}
                   />
                 }
+              />
+              <Menu
+                menuRef={el => {
+                  menuRef = el;
+                }}
+                menuLinks={links}
               />
             </HeaderContainer>
             <main>{children}</main>
