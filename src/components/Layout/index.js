@@ -9,6 +9,7 @@ import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { ThemeProvider } from 'styled-components';
+import { isIOS } from 'react-device-detect';
 import TweenLite from 'TweenLite';
 import TweenMax from 'TweenMax';
 import TimelineMax from 'TimelineMax';
@@ -42,7 +43,13 @@ const websiteTheme = (height, width, menuOn) => {
     secondaryColor: '#4dbdc6',
     vh: `${height}px`,
     vw: `${width}px`,
-    ...(menuOn && { overflow: 'hidden' })
+    fontSize: {
+      xsm: '2.5rem',
+      sm: '3rem',
+      med: '3.75rem',
+      big: '5rem'
+    },
+    ...(menuOn && !isIOS && { overflow: 'hidden' })
   };
 };
 
@@ -91,7 +98,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
       ref: el => {
         link2 = el;
       },
-      action: useLinkClick(refS2)
+      action: useLinkClick(refS3)
     },
     {
       id: 3,
@@ -128,7 +135,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
             },
             {
               yPercent: 0,
-              backgroundPosition: '50% 50%',
+              backgroundPosition: '0% 0%',
               force3D: true,
               ease: 'Power4.easeOut'
             }
@@ -162,7 +169,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
             x: 10,
             transformOrigin: 'left top'
           }),
-          0.15
+          0.1
         )
         .add(
           TweenLite.to(iconBarBottom, 0.3, {
@@ -193,7 +200,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
           TweenLite.to(iconMenu, 0.6, {
             rotation: 180
           }),
-          0.1
+          0
         )
     );
   }, []);
@@ -215,7 +222,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   useEffect(() => {
     if (scrollTop >= 0 && scrollTop <= height) {
       setBgAnim(null);
-    } else if (scrollTop > height * 2 && scrollTop <= height * 4) {
+    } else if (scrollTop > height * 2.5 && scrollTop <= height * 4) {
       setBgAnim('bgAnim');
     } else {
       setBgAnim(null);
@@ -225,8 +232,16 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   useLayoutEffect(() => {
     if (menuOn && activeAnim) {
       menuAnim.play().timeScale(1);
+      if (isIOS) {
+        setTimeout(() => {
+          document.body.style.position = 'fixed';
+        }, 600);
+      }
     } else if (toggleMenuState === 'off' && activeAnim) {
       menuAnim.reverse().timeScale(1.5);
+      if (isIOS) {
+        document.body.style.position = '';
+      }
     }
   }, [menuOn]);
 
@@ -242,7 +257,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
         }
       `}
       render={data => (
-        <ThemeProvider theme={websiteTheme(height, width, menuOn, bgAnim)}>
+        <ThemeProvider theme={websiteTheme(height, width, menuOn)}>
           <>
             <GlobalStyle />
             <Background bgAnim={bgAnim} />

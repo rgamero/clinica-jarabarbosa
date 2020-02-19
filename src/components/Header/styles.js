@@ -12,8 +12,8 @@ export const HeaderWrapper = styled.header`
 export const HeaderTitle = styled.h1`
   color: ${props => props.theme.primaryColor}};
   letter-spacing: -1px;
-  font-size: 2.75rem;
+  font-size: ${props => props.theme.fontSize.xsm};
   ${Media.tablet`
-    font-size: 3.5rem;
+    font-size: ${props => props.theme.fontSize.sm};
   `};
 `;

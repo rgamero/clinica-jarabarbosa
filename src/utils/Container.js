@@ -39,7 +39,6 @@ export default styled.div`
       justify-content: center;
       align-items: center;
       flex-flow: column nowrap;
-      padding-top: 15rem;
     `};
   ${props =>
     props.footer &&

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IsotipoStyle } from './styles';
 
-const Isotipo = () => (
+const Isotipo = ({ innerRef }) => (
   <IsotipoStyle
     id="6197c9ab-f11d-48a7-8adb-62d6ad76db04"
     dataname="Isotipo Jara & Barbosa"
@@ -10,10 +10,11 @@ const Isotipo = () => (
   >
     <defs>
       <linearGradient
+        ref={innerRef}
         id="38ec84f2-60b5-41ec-8489-53d164ab32ae"
         x1="151.15"
-        y1="137.86"
-        x2="54.93"
+        y1="151.15"
+        x2="65"
         y2="41.64"
         gradientUnits="userSpaceOnUse"
       >
@@ -25,12 +26,6 @@ const Isotipo = () => (
       </linearGradient>
     </defs>
     <g id="e48dab45-f991-4e7a-b48d-5cf64f754e51" data-name="&lt;Grupo&gt;">
-      <path
-        id="373aaef6-eb5e-4b0b-9cd3-04961f71e1a1"
-        dataname="&lt;Trazado&gt;"
-        d="M103,156.61a56.69,56.69,0,0,1-56.69,56.69"
-        fill="#fff"
-      />
       <path
         id="2e7e6a34-179a-404d-9691-a4cd4f155eb0"
         dataname="&lt;Trazado&gt;"

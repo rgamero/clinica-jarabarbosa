@@ -13,10 +13,9 @@ const useLinkClick = ref => {
       toggleMenuState: 'off'
     }));
     TweenLite.to(window, 0.8, {
-      scrollTo: ref.current,
+      scrollTo: { y: ref.current, autoKill: false },
       delay: 0.65,
-      ease: 'Power4.easeOut',
-      autoKill: false
+      ease: 'Power4.easeOut'
     });
   };
 

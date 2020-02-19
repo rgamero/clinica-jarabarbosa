@@ -8,15 +8,9 @@ import { Section } from '../components/Layout/globalStyle';
 import Layout from '../components/Layout';
 import Logo from '../components/Logo';
 import SEO from '../components/seo';
-import BioSection from '../components/BioSection';
-import {
-  Crown,
-  Filling,
-  Implant,
-  Orthodontics,
-  Revision,
-  RootCanal
-} from '../components/Icons';
+import Bio from '../components/Sections/Bio';
+import Services from '../components/Sections/Services';
+import Contact from '../components/Sections/Contact';
 
 const IndexPage = () => {
   // Section refs
@@ -33,16 +27,9 @@ const IndexPage = () => {
             <Logo />
           </Container>
         </Section>
-        <BioSection innerRef={section2} />
-        <Section ref={section3}>
-          <Crown />
-          <Implant />
-          <Orthodontics />
-          <RootCanal />
-          <Filling />
-          <Revision />
-        </Section>
-        <Section ref={section4} />
+        <Bio innerRef={section2} />
+        <Services innerRef={section3} />
+        <Contact innerRef={section4} />
       </Layout>
     </Fragment>
   );

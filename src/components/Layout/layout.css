@@ -137,3 +137,13 @@ h3 {
   font-size: 1.38316rem;
   line-height: 1.1;
 }
+p {
+  margin-bottom: 0;
+}
+.leaflet-container {
+  display: flex;
+  margin: 0 auto;
+  height: 50rem;
+  width: 100%;
+  z-index: 1;
+}

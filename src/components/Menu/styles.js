@@ -4,7 +4,7 @@ export const MenuNav = styled.nav`
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  position: fixed;
+  position: absolute;
   will-change: transform;
   min-height: -webkit-fill-available;
   height: ${props => props.theme.vh};
@@ -17,6 +17,7 @@ export const MenuNav = styled.nav`
     #d2f2f5
   );
   background-size: 400% 400%;
+  background-position: 50% 50%;
   transition: background-position 0.5s ease-out;
 `;
 
