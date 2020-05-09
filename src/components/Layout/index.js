@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /**
  * Layout component that queries for data
  * with Gatsby's StaticQuery component
@@ -77,10 +78,6 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
   const { handleResetMenuToggle } = useResetMenuToggle();
 
-  const scrollTop =
-    window.pageYOffset ||
-    document.documentElement.scrollTop ||
-    document.body.scrollTop;
   const tlMenu = new TimelineMax({ paused: true });
   const menuOn = toggleMenuState === 'on';
   const links = [
@@ -220,6 +217,11 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   });
 
   useEffect(() => {
+    const scrollTop =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop;
+
     if (scrollTop >= 0 && scrollTop <= height) {
       setBgAnim(null);
     } else if (scrollTop > height * 2.5 && scrollTop <= height * 4) {
