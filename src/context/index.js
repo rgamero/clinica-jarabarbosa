@@ -8,7 +8,7 @@ const AppProvider = ({ children }) => {
     height: window.innerHeight,
     toggleMenuState: null,
     prevScrollpos: window.pageYOffset,
-    visible: true
+    visible: false
   });
 
   return (

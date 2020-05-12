@@ -1,7 +1,9 @@
 import { useContext } from 'react';
 import TweenLite from 'TweenLite';
-import 'ScrollToPlugin';
+import ScrollToPlugin from 'ScrollToPlugin';
 import { AppContext } from '../context';
+
+const plugins = [ScrollToPlugin];
 
 const useLinkClick = ref => {
   const [state, setState] = useContext(AppContext);

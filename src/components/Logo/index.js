@@ -14,18 +14,10 @@ const Logo = () => {
   useEffect(() => {
     tlLogo
       .add(
-        TweenMax.fromTo(
-          logoRef,
-          1,
-          {
-            y: -10,
-            autoAlpha: 0
-          },
-          {
-            y: 0,
-            autoAlpha: 1
-          }
-        )
+        TweenMax.to(logoRef, 1, {
+          y: 0,
+          autoAlpha: 1
+        })
       )
       .add(
         TweenMax.fromTo(

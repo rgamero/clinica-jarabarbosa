@@ -6,9 +6,13 @@ export const MenuNav = styled.nav`
   align-items: center;
   position: absolute;
   will-change: transform;
-  min-height: -webkit-fill-available;
   height: ${props => props.theme.vh};
   width: ${props => props.theme.vw};
+  min-height: 100vh;
+  min-width: 100vw;
+  min-width: -moz-available;
+  min-width: -webkit-fill-available;
+  min-width: fill-available;
   background: linear-gradient(
     -45deg,
     #fff,
@@ -18,6 +22,7 @@ export const MenuNav = styled.nav`
   );
   background-size: 400% 400%;
   background-position: 50% 50%;
+  transform: translateY(-100%);
   transition: background-position 0.5s ease-out;
 `;
 

@@ -6,6 +6,8 @@ export const LogoContainer = styled.div`
   align-items: center;
   width: 50rem;
   height: 40rem;
+  opacity: 0;
+  transform: translateY(-7.5%);
 `;
 
 export const IsotipoStyle = styled.svg`

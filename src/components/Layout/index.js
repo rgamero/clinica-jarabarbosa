@@ -124,19 +124,12 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     setMenuAnim(
       tlMenu
         .add(
-          TweenMax.fromTo(
-            menuRef,
-            0.5,
-            {
-              yPercent: -100
-            },
-            {
-              yPercent: 0,
-              backgroundPosition: '0% 0%',
-              force3D: true,
-              ease: 'Power4.easeOut'
-            }
-          )
+          TweenMax.to(menuRef, 0.5, {
+            y: 0,
+            backgroundPosition: '0% 0%',
+            force3D: true,
+            ease: 'Power4.easeOut'
+          })
         )
         .add(
           TweenMax.staggerTo([link1, link2, link3, link4], 0.5, {

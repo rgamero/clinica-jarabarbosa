@@ -26,7 +26,10 @@ exports.onCreateWebpackConfig = ({ actions }) => {
           'node_modules',
           'gsap/src/minified/TimelineMax.min.js'
         ),
-        ScrollToPlugin: path.resolve('node_modules', 'gsap/ScrollToPlugin.js')
+        ScrollToPlugin: path.resolve(
+          'node_modules',
+          'gsap/src/minified/plugins/ScrollToPlugin.min.js'
+        )
       }
     }
   });
