@@ -25,7 +25,7 @@ const replaceRenderer = ({
   setHeadComponents(styleElement);
 };
 
-export default replaceRenderer;
+export { replaceRenderer };
 
 // Add Google Analytics SSR
 

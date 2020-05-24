@@ -1,9 +1,9 @@
 import { useContext } from 'react';
-import TweenLite from 'TweenLite';
-import ScrollToPlugin from 'ScrollToPlugin';
+import gsap from 'gsap';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { AppContext } from '../context';
 
-const plugins = [ScrollToPlugin];
+gsap.registerPlugin(ScrollToPlugin);
 
 const useLinkClick = ref => {
   const [state, setState] = useContext(AppContext);
@@ -14,7 +14,9 @@ const useLinkClick = ref => {
       ...state,
       toggleMenuState: 'off'
     }));
-    TweenLite.to(window, 0.8, {
+
+    gsap.to(window, {
+      duration: 0.8,
       scrollTo: { y: ref.current, autoKill: false },
       delay: 0.65,
       ease: 'Power4.easeOut'

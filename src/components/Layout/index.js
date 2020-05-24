@@ -11,9 +11,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { ThemeProvider } from 'styled-components';
 import { isIOS } from 'react-device-detect';
-import TweenLite from 'TweenLite';
-import TweenMax from 'TweenMax';
-import TimelineMax from 'TimelineMax';
+import gsap from 'gsap';
 
 // Utils
 import Container from '../../utils/Container';
@@ -22,7 +20,6 @@ import Container from '../../utils/Container';
 import useWindowSizes from '../../hooks/useWindowSizes';
 import useHideHeader from '../../hooks/useHideHeader';
 import useToggleMenu from '../../hooks/useToggleMenu';
-import useResetMenuToggle from '../../hooks/useResetMenuToggle';
 import useLinkClick from '../../hooks/useLinkClick';
 
 // Components
@@ -68,17 +65,17 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   let iconBarMidR = useRef(null);
 
   // State Hooks
-  const [menuAnim, setMenuAnim] = useState(null);
-  const [activeAnim, setMenuToggle] = useState(false);
   const [bgAnim, setBgAnim] = useState(null);
+  const [menuOpenAnim, setMenuOpenAnim] = useState(null);
+  const [menuCloseAnim, setMenuCloseAnim] = useState(null);
+  const [tlOpenMenu] = useState(gsap.timeline({ paused: true }));
+  const [tlCloseMenu] = useState(gsap.timeline({ paused: true }));
 
   // Custom Hooks
-  const { height, width, handleResize } = useWindowSizes();
-  const { visible, handleScroll } = useHideHeader();
+  const { height, width } = useWindowSizes();
+  const { visible } = useHideHeader();
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
-  const { handleResetMenuToggle } = useResetMenuToggle();
 
-  const tlMenu = new TimelineMax({ paused: true });
   const menuOn = toggleMenuState === 'on';
   const links = [
     {
@@ -115,45 +112,66 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
     }
   ];
 
+  // Use Effect Hooks
   useEffect(() => {
-    setMenuToggle(true);
-    handleResetMenuToggle();
-  }, []);
-
-  useEffect(() => {
-    setMenuAnim(
-      tlMenu
+    setMenuOpenAnim(
+      tlOpenMenu
         .add(
-          TweenMax.to(menuRef, 0.5, {
-            y: 0,
-            backgroundPosition: '0% 0%',
-            force3D: true,
-            ease: 'Power4.easeOut'
-          })
+          gsap.fromTo(
+            menuRef,
+            {
+              autoAlpha: 0
+            },
+            {
+              duration: 0.01,
+              autoAlpha: 1
+            }
+          )
         )
         .add(
-          TweenMax.staggerTo([link1, link2, link3, link4], 0.5, {
+          gsap.fromTo(
+            menuRef,
+            {
+              yPercent: -100
+            },
+            {
+              duration: 0.5,
+              yPercent: 0,
+              backgroundPosition: '0% 0%',
+              force3D: false,
+              ease: 'power4.easeOut'
+            }
+          )
+        )
+        .add(
+          gsap.to([link1, link2, link3, link4], {
+            duration: 0.5,
             y: 5,
             autoAlpha: 1,
-            stagger: 0.125,
-            ease: 'Power4.easeOut'
+            stagger: {
+              each: 0.125,
+              ease: 'power4.easeOut'
+            }
           }),
           0.2
         )
         .add(
-          TweenLite.to(iconBarTop, 0.2, {
+          gsap.to(iconBarTop, {
+            duration: 0.2,
             y: 5
           }),
           -0.2
         )
         .add(
-          TweenLite.to(iconBarBottom, 0.2, {
+          gsap.to(iconBarBottom, {
+            duration: 0.2,
             y: -5
           }),
           -0.2
         )
         .add(
-          TweenLite.to(iconBarTop, 0.3, {
+          gsap.to(iconBarTop, {
+            duration: 0.3,
             rotation: 45,
             y: 0,
             x: 10,
@@ -162,7 +180,8 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
           0.1
         )
         .add(
-          TweenLite.to(iconBarBottom, 0.3, {
+          gsap.to(iconBarBottom, {
+            duration: 0.3,
             rotation: -45,
             y: 0,
             x: 10,
@@ -171,7 +190,8 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
           0.15
         )
         .add(
-          TweenLite.to(iconBarMidL, 0.4, {
+          gsap.to(iconBarMidL, {
+            duration: 0.4,
             opacity: 0,
             scaleX: 0,
             transformOrigin: 'left'
@@ -179,7 +199,8 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
           0
         )
         .add(
-          TweenLite.to(iconBarMidR, 0.4, {
+          gsap.to(iconBarMidR, {
+            duration: 0.4,
             opacity: 0,
             scaleX: 0,
             transformOrigin: 'right'
@@ -187,27 +208,112 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
           0
         )
         .add(
-          TweenLite.to(iconMenu, 0.6, {
+          gsap.to(iconMenu, {
+            duration: 0.6,
             rotation: 180
           }),
           0
         )
     );
-  }, []);
+  }, [tlOpenMenu]);
 
   useEffect(() => {
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  });
+    setMenuCloseAnim(
+      tlCloseMenu
+        .add(
+          gsap.to(iconMenu, {
+            duration: 0.6,
+            rotation: 0
+          }),
+          0
+        )
+        .add(
+          gsap.to(iconBarMidR, {
+            duration: 0.4,
+            opacity: 1,
+            scaleX: 1,
+            transformOrigin: 'right'
+          }),
+          0
+        )
+        .add(
+          gsap.to(iconBarMidL, {
+            duration: 0.4,
+            opacity: 1,
+            scaleX: 1,
+            transformOrigin: 'left'
+          }),
+          0
+        )
+        .add(
+          gsap.to(iconBarBottom, {
+            duration: 0.3,
+            rotation: 0,
+            y: -5,
+            x: 0,
+            transformOrigin: 'left bottom'
+          }),
+          0.15
+        )
+        .add(
+          gsap.to(iconBarTop, {
+            duration: 0.3,
+            rotation: 0,
+            y: 5,
+            x: 0,
+            transformOrigin: 'left top'
+          }),
+          0.1
+        )
+        .add(
+          gsap.to(iconBarBottom, {
+            duration: 0.2,
+            y: 0
+          }),
+          0.6
+        )
+        .add(
+          gsap.to(iconBarTop, {
+            duration: 0.2,
+            y: 0
+          }),
+          0.6
+        )
+        .add(
+          gsap.to([link4, link3, link2, link1], {
+            duration: 0.5,
+            y: -15,
+            autoAlpha: 0,
+            stagger: {
+              each: 0.125,
+              ease: 'power4.easeOut'
+            }
+          }),
+          0.2
+        )
+        .add(
+          gsap.to(menuRef, {
+            duration: 0.5,
+            yPercent: -100,
+            backgroundPosition: '50% 50%',
+            force3D: false,
+            ease: 'power4.easeOut'
+          })
+        )
+        .add(
+          gsap.fromTo(
+            menuRef,
+            {
+              autoAlpha: 1
+            },
+            {
+              duration: 0.01,
+              autoAlpha: 0
+            }
+          )
+        )
+    );
+  }, [tlCloseMenu]);
 
   useEffect(() => {
     const scrollTop =
@@ -225,15 +331,15 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   });
 
   useLayoutEffect(() => {
-    if (menuOn && activeAnim) {
-      menuAnim.play().timeScale(1);
+    if (menuOn) {
+      menuOpenAnim.play(0, false);
       if (isIOS) {
         setTimeout(() => {
           document.body.style.position = 'fixed';
         }, 600);
       }
-    } else if (toggleMenuState === 'off' && activeAnim) {
-      menuAnim.reverse().timeScale(1.5);
+    } else if (toggleMenuState === 'off') {
+      menuCloseAnim.timeScale(1.5).play(0, false);
       if (isIOS) {
         document.body.style.position = '';
       }

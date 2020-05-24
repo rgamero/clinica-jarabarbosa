@@ -5,7 +5,7 @@ export const MenuNav = styled.nav`
   flex-flow: column nowrap;
   align-items: center;
   position: absolute;
-  will-change: transform;
+  will-change: transform, opacity;
   height: ${props => props.theme.vh};
   width: ${props => props.theme.vw};
   min-height: 100vh;
@@ -22,7 +22,7 @@ export const MenuNav = styled.nav`
   );
   background-size: 400% 400%;
   background-position: 50% 50%;
-  transform: translateY(-100%);
+  opacity: 0;
   transition: background-position 0.5s ease-out;
 `;
 

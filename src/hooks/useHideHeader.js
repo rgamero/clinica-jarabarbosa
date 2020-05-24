@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { isMobile } from 'react-device-detect';
 import { AppContext } from '../context';
 
@@ -12,9 +12,15 @@ const useHideHeader = () => {
     setState(state => ({ ...state, prevScrollpos: currentScrollPos, visible }));
   };
 
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  });
+
   return {
-    visible: state.visible,
-    handleScroll
+    visible: state.visible
   };
 };
 

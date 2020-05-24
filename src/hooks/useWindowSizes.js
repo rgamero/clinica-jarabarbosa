@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AppContext } from '../context';
 
 const useWindowSizes = () => {
@@ -11,10 +11,16 @@ const useWindowSizes = () => {
     setState(state => ({ ...state, width: w, height: h }));
   };
 
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  });
+
   return {
     width: state.width,
-    height: state.height,
-    handleResize
+    height: state.height
   };
 };
 

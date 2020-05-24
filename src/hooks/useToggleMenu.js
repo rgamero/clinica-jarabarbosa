@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../context';
 
-const useWindowSizes = () => {
+const useToggleMenu = () => {
   const [state, setState] = useContext(AppContext);
 
   // Menu Toggle Handler
@@ -22,4 +22,4 @@ const useWindowSizes = () => {
   };
 };
 
-export default useWindowSizes;
+export default useToggleMenu;
