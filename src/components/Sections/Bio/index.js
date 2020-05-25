@@ -8,9 +8,9 @@ import {
   BioDescription
 } from './styles';
 
-const Bio = ({ innerRef }) => (
+const Bio = ({ forwardRef }) => (
   <>
-    <SectionBio ref={innerRef}>
+    <SectionBio ref={forwardRef}>
       <BioImgWrapper>
         <Image />
       </BioImgWrapper>

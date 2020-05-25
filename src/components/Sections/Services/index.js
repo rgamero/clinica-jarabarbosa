@@ -18,8 +18,8 @@ import {
   RootCanal
 } from '../../Icons';
 
-const Services = ({ innerRef }) => (
-  <SectionServices ref={innerRef}>
+const Services = ({ forwardRef }) => (
+  <SectionServices ref={forwardRef}>
     <Container main>
       <ServicesTitle>Servicios</ServicesTitle>
       <SectionWrapper>

@@ -14,22 +14,22 @@ import Contact from '../components/Sections/Contact';
 
 const IndexPage = () => {
   // Section refs
-  const section2 = useRef(null);
-  const section3 = useRef(null);
-  const section4 = useRef(null);
+  const sect2 = useRef(null);
+  const sect3 = useRef(null);
+  const sect4 = useRef(null);
 
   return (
     <Fragment>
       <SEO title="Home" />
-      <Layout refS2={section2} refS3={section3} refS4={section4}>
+      <Layout forwardRefS2={sect2} forwardRefS3={sect3} forwardRefS4={sect4}>
         <Section>
           <Container main>
             <Logo />
           </Container>
         </Section>
-        <Bio innerRef={section2} />
-        <Services innerRef={section3} />
-        <Contact innerRef={section4} />
+        <Bio forwardRef={sect2} />
+        <Services forwardRef={sect3} />
+        <Contact forwardRef={sect4} />
       </Layout>
     </Fragment>
   );

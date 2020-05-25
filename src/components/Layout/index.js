@@ -16,11 +16,15 @@ import gsap from 'gsap';
 // Utils
 import Container from '../../utils/Container';
 
+// Tweens
+import { MenuOpenTimeline, MenuCloseTimeline } from './tweens';
+
 // Hooks
 import useWindowSizes from '../../hooks/useWindowSizes';
 import useHideHeader from '../../hooks/useHideHeader';
 import useToggleMenu from '../../hooks/useToggleMenu';
 import useLinkClick from '../../hooks/useLinkClick';
+import useClientRect from '../../hooks/useClientRect';
 
 // Components
 import Header from '../Header';
@@ -51,7 +55,7 @@ const websiteTheme = (height, width, menuOn) => {
   };
 };
 
-const Layout = ({ children, refS2, refS3, refS4 }) => {
+const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
   // Refs
   let menuRef = useRef(null);
   let link1 = useRef(null);
@@ -75,6 +79,9 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
   const { height, width } = useWindowSizes();
   const { visible } = useHideHeader();
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
+  const [rectS2, refS2] = useClientRect(forwardRefS2);
+  const [rectS3, refS3] = useClientRect(forwardRefS3);
+  const [rectS4, refS4] = useClientRect(forwardRefS4);
 
   const menuOn = toggleMenuState === 'on';
   const links = [
@@ -100,7 +107,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
       ref: el => {
         link3 = el;
       },
-      action: useLinkClick(refS3)
+      action: useLinkClick(refS4)
     },
     {
       id: 4,
@@ -114,204 +121,36 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
 
   // Use Effect Hooks
   useEffect(() => {
-    setMenuOpenAnim(
-      tlOpenMenu
-        .add(
-          gsap.fromTo(
-            menuRef,
-            {
-              autoAlpha: 0
-            },
-            {
-              duration: 0.01,
-              autoAlpha: 1
-            }
-          )
-        )
-        .add(
-          gsap.fromTo(
-            menuRef,
-            {
-              yPercent: -100
-            },
-            {
-              duration: 0.5,
-              yPercent: 0,
-              backgroundPosition: '0% 0%',
-              force3D: false,
-              ease: 'power4.easeOut'
-            }
-          )
-        )
-        .add(
-          gsap.to([link1, link2, link3, link4], {
-            duration: 0.5,
-            y: 5,
-            autoAlpha: 1,
-            stagger: {
-              each: 0.125,
-              ease: 'power4.easeOut'
-            }
-          }),
-          0.2
-        )
-        .add(
-          gsap.to(iconBarTop, {
-            duration: 0.2,
-            y: 5
-          }),
-          -0.2
-        )
-        .add(
-          gsap.to(iconBarBottom, {
-            duration: 0.2,
-            y: -5
-          }),
-          -0.2
-        )
-        .add(
-          gsap.to(iconBarTop, {
-            duration: 0.3,
-            rotation: 45,
-            y: 0,
-            x: 10,
-            transformOrigin: 'left top'
-          }),
-          0.1
-        )
-        .add(
-          gsap.to(iconBarBottom, {
-            duration: 0.3,
-            rotation: -45,
-            y: 0,
-            x: 10,
-            transformOrigin: 'left bottom'
-          }),
-          0.15
-        )
-        .add(
-          gsap.to(iconBarMidL, {
-            duration: 0.4,
-            opacity: 0,
-            scaleX: 0,
-            transformOrigin: 'left'
-          }),
-          0
-        )
-        .add(
-          gsap.to(iconBarMidR, {
-            duration: 0.4,
-            opacity: 0,
-            scaleX: 0,
-            transformOrigin: 'right'
-          }),
-          0
-        )
-        .add(
-          gsap.to(iconMenu, {
-            duration: 0.6,
-            rotation: 180
-          }),
-          0
-        )
+    MenuOpenTimeline(
+      tlOpenMenu,
+      setMenuOpenAnim,
+      menuRef,
+      link1,
+      link2,
+      link3,
+      link4,
+      iconMenu,
+      iconBarTop,
+      iconBarBottom,
+      iconBarMidL,
+      iconBarMidR
     );
   }, [tlOpenMenu]);
 
   useEffect(() => {
-    setMenuCloseAnim(
-      tlCloseMenu
-        .add(
-          gsap.to(iconMenu, {
-            duration: 0.6,
-            rotation: 0
-          }),
-          0
-        )
-        .add(
-          gsap.to(iconBarMidR, {
-            duration: 0.4,
-            opacity: 1,
-            scaleX: 1,
-            transformOrigin: 'right'
-          }),
-          0
-        )
-        .add(
-          gsap.to(iconBarMidL, {
-            duration: 0.4,
-            opacity: 1,
-            scaleX: 1,
-            transformOrigin: 'left'
-          }),
-          0
-        )
-        .add(
-          gsap.to(iconBarBottom, {
-            duration: 0.3,
-            rotation: 0,
-            y: -5,
-            x: 0,
-            transformOrigin: 'left bottom'
-          }),
-          0.15
-        )
-        .add(
-          gsap.to(iconBarTop, {
-            duration: 0.3,
-            rotation: 0,
-            y: 5,
-            x: 0,
-            transformOrigin: 'left top'
-          }),
-          0.1
-        )
-        .add(
-          gsap.to(iconBarBottom, {
-            duration: 0.2,
-            y: 0
-          }),
-          0.6
-        )
-        .add(
-          gsap.to(iconBarTop, {
-            duration: 0.2,
-            y: 0
-          }),
-          0.6
-        )
-        .add(
-          gsap.to([link4, link3, link2, link1], {
-            duration: 0.5,
-            y: -15,
-            autoAlpha: 0,
-            stagger: {
-              each: 0.125,
-              ease: 'power4.easeOut'
-            }
-          }),
-          0.2
-        )
-        .add(
-          gsap.to(menuRef, {
-            duration: 0.5,
-            yPercent: -100,
-            backgroundPosition: '50% 50%',
-            force3D: false,
-            ease: 'power4.easeOut'
-          })
-        )
-        .add(
-          gsap.fromTo(
-            menuRef,
-            {
-              autoAlpha: 1
-            },
-            {
-              duration: 0.01,
-              autoAlpha: 0
-            }
-          )
-        )
+    MenuCloseTimeline(
+      tlCloseMenu,
+      setMenuCloseAnim,
+      menuRef,
+      link1,
+      link2,
+      link3,
+      link4,
+      iconMenu,
+      iconBarTop,
+      iconBarBottom,
+      iconBarMidL,
+      iconBarMidR
     );
   }, [tlCloseMenu]);
 
@@ -323,7 +162,7 @@ const Layout = ({ children, refS2, refS3, refS4 }) => {
 
     if (scrollTop >= 0 && scrollTop <= height) {
       setBgAnim(null);
-    } else if (scrollTop > height * 2.5 && scrollTop <= height * 4) {
+    } else if (scrollTop > rectS3.y && scrollTop <= rectS4.y) {
       setBgAnim('bgAnim');
     } else {
       setBgAnim(null);
