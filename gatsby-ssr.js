@@ -1,31 +1,9 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server';
-import { ServerStyleSheet } from 'styled-components';
+import AppProvider from './src/context';
 
-import createStore from './src/redux';
-
-const replaceRenderer = ({
-  bodyComponent,
-  replaceBodyHTMLString,
-  setHeadComponents
-}) => {
-  const store = createStore();
-
-  const ConnectedBody = () => (
-    <Provider store={store}>{bodyComponent}</Provider>
-  );
-
-  // Add styled-components SSR
-  const sheet = new ServerStyleSheet();
-  const bodyHTML = renderToString(sheet.collectStyles(<ConnectedBody />));
-  const styleElement = sheet.getStyleElement();
-
-  replaceBodyHTMLString(bodyHTML);
-  setHeadComponents(styleElement);
-};
-
-export { replaceRenderer };
+export const wrapRootElement = ({ element }) => (
+  <AppProvider>{element}</AppProvider>
+);
 
 // Add Google Analytics SSR
 

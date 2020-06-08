@@ -41,7 +41,7 @@ const Logo = () => {
       }}
     >
       <Isotipo
-        forwardRef={el => {
+        forwardGradRef={el => {
           gradientRef = el;
         }}
       />

@@ -1,7 +1,7 @@
 import React from 'react';
 import { IsotipoStyle } from './styles';
 
-const Isotipo = ({ forwardRef }) => (
+const Isotipo = ({ forwardGradRef }) => (
   <IsotipoStyle
     id="6197c9ab-f11d-48a7-8adb-62d6ad76db04"
     dataname="Isotipo Jara & Barbosa"
@@ -10,7 +10,7 @@ const Isotipo = ({ forwardRef }) => (
   >
     <defs>
       <linearGradient
-        ref={forwardRef}
+        ref={forwardGradRef}
         id="38ec84f2-60b5-41ec-8489-53d164ab32ae"
         x1="151.15"
         y1="151.15"
