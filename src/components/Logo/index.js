@@ -4,14 +4,14 @@ import Isotipo from './Isotipo';
 import { LogoContainer, LogoTitle, LogoSubtitle } from './styles';
 
 const Logo = () => {
-  // Timeline
-  const tlLogo = gsap.timeline();
-
   // Refs
   let logoRef = useRef(null);
   let gradientRef = useRef(null);
 
   useEffect(() => {
+    // Timeline
+    const tlLogo = gsap.timeline();
+
     tlLogo
       .add(
         gsap.to(logoRef, {

@@ -1,22 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export const AppContext = React.createContext([{}, () => {}]);
 
 const AppProvider = ({ children }) => {
-  let width, height, scrollY;
-
-  useEffect(() => {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    scrollY = window.pageYOffset;
-  }, []);
-
   const [state, setState] = useState({
-    width,
-    height,
     toggleMenuState: null,
-    prevScrollpos: scrollY,
-    visible: false
+    visible: undefined
   });
 
   return (

@@ -20,11 +20,12 @@ import Container from '../../utils/Container';
 import { MenuOpenTimeline, MenuCloseTimeline } from './tweens';
 
 // Hooks
-import useWindowSizes from '../../hooks/useWindowSizes';
+import useWindowSize from '../../hooks/useWindowSize';
 import useHideHeader from '../../hooks/useHideHeader';
 import useToggleMenu from '../../hooks/useToggleMenu';
 import useLinkClick from '../../hooks/useLinkClick';
 import useClientRect from '../../hooks/useClientRect';
+import useScrollPosition from '../../hooks/useScrollPosition';
 
 // Components
 import Header from '../Header';
@@ -76,7 +77,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
   const [tlCloseMenu] = useState(gsap.timeline({ paused: true }));
 
   // Custom Hooks
-  const { height, width } = useWindowSizes();
+  const { height, width } = useWindowSize();
   const { visible } = useHideHeader();
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
   const [rectS2, refS2] = useClientRect(forwardRefS2);
@@ -154,21 +155,6 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
     );
   }, [tlCloseMenu]);
 
-  useEffect(() => {
-    const scrollTop =
-      window.pageYOffset ||
-      document.documentElement.scrollTop ||
-      document.body.scrollTop;
-
-    if (scrollTop >= 0 && scrollTop <= height) {
-      setBgAnim(null);
-    } else if (scrollTop > rectS3.y && scrollTop <= rectS4.y) {
-      setBgAnim('bgAnim');
-    } else {
-      setBgAnim(null);
-    }
-  });
-
   useLayoutEffect(() => {
     if (menuOn) {
       menuOpenAnim.play(0, false);
@@ -184,6 +170,19 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
       }
     }
   }, [menuOn]);
+
+  useScrollPosition(
+    ({ currPos }) => {
+      if (currPos.y >= 0 && currPos.y <= height) {
+        setBgAnim(null);
+      } else if (currPos.y > rectS3.y && currPos.y <= rectS4.y) {
+        setBgAnim('bgAnim');
+      } else {
+        setBgAnim(null);
+      }
+    },
+    [height]
+  );
 
   return (
     <StaticQuery

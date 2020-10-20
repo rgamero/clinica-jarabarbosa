@@ -1,12 +1,17 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { AppContext } from '../context';
 
-gsap.registerPlugin(ScrollToPlugin);
-
 const useLinkClick = ref => {
   const [state, setState] = useContext(AppContext);
+
+  useEffect(() => {
+    if (typeof window !== `undefined`) {
+      gsap.registerPlugin(ScrollToPlugin);
+      gsap.core.globals('ScrollToPlugin', ScrollToPlugin);
+    }
+  }, []);
 
   // Link Scroll Handler
   const toScroll = () => {
