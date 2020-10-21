@@ -10,11 +10,11 @@ import React, { useRef, useState, useEffect, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { ThemeProvider } from 'styled-components';
-import { isIOS } from 'react-device-detect';
 import gsap from 'gsap';
 
 // Utils
 import Container from '../../utils/Container';
+import theme from '../../utils/theme';
 
 // Tweens
 import { MenuOpenTimeline, MenuCloseTimeline } from './tweens';
@@ -26,6 +26,7 @@ import useToggleMenu from '../../hooks/useToggleMenu';
 import useLinkClick from '../../hooks/useLinkClick';
 import useClientRect from '../../hooks/useClientRect';
 import useScrollPosition from '../../hooks/useScrollPosition';
+import useDetectUserAgent from '../../hooks/useDetectUserAgent';
 
 // Components
 import Header from '../Header';
@@ -37,24 +38,6 @@ import GlobalStyle, {
   HeaderBg
 } from './globalStyle';
 import './layout.css';
-
-const websiteTheme = (height, width, menuOn) => {
-  return {
-    fontRegular: 'Coco Reg',
-    fontBold: 'Coco Bold',
-    primaryColor: '#9b4091',
-    secondaryColor: '#4dbdc6',
-    vh: `${height}px`,
-    vw: `${width}px`,
-    fontSize: {
-      xsm: '2.5rem',
-      sm: '3rem',
-      med: '3.75rem',
-      big: '5rem'
-    },
-    ...(menuOn && !isIOS && { overflow: 'hidden' })
-  };
-};
 
 const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
   // Refs
@@ -80,6 +63,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
   const { height, width } = useWindowSize();
   const { visible } = useHideHeader();
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
+  const { isIOS } = useDetectUserAgent();
   const [rectS2, refS2] = useClientRect(forwardRefS2);
   const [rectS3, refS3] = useClientRect(forwardRefS3);
   const [rectS4, refS4] = useClientRect(forwardRefS4);
@@ -196,7 +180,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
         }
       `}
       render={data => (
-        <ThemeProvider theme={websiteTheme(height, width, menuOn)}>
+        <ThemeProvider theme={theme(height, width, menuOn)}>
           <>
             <GlobalStyle />
             <Background bgAnim={bgAnim} />

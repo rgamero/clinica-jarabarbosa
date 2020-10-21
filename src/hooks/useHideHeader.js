@@ -1,10 +1,11 @@
 import { useContext } from 'react';
-import { isMobile } from 'react-device-detect';
 import { AppContext } from '../context';
 import useScrollPosition from './useScrollPosition';
+import useDetectUserAgent from './useDetectUserAgent';
 
 const useHideHeader = () => {
   const [state, setState] = useContext(AppContext);
+  const { isMobile } = useDetectUserAgent();
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
