@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const getUserAgent = (userAgent) => {
+const getUserAgent = userAgent => {
   const isAndroid = Boolean(userAgent.match(/Android/i));
   const isIOS = Boolean(userAgent.match(/iPhone|iPad|iPod/i));
   const isOpera = Boolean(userAgent.match(/Opera Mini/i));
@@ -17,7 +17,7 @@ const getUserAgent = (userAgent) => {
     isAndroid,
     isIOS,
     isSSR,
-    isIE,
+    isIE
   };
 };
 

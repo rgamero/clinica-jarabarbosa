@@ -1,18 +1,16 @@
 import { useContext } from 'react';
 import { AppContext } from '../context';
+import { toggleMenuState } from '../context/actions';
 
 const useToggleMenu = () => {
-  const [state, setState] = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   // Menu Toggle Handler
   const handleMenuToggle = () => {
     if (state.toggleMenuState === null) {
-      setState(state => ({ ...state, toggleMenuState: 'on' }));
+      dispatch(toggleMenuState('on'));
     } else {
-      setState(state => ({
-        ...state,
-        toggleMenuState: state.toggleMenuState === 'off' ? 'on' : 'off'
-      }));
+      dispatch(toggleMenuState(state.toggleMenuState === 'off' ? 'on' : 'off'));
     }
   };
 

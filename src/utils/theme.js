@@ -13,9 +13,9 @@ const theme = (height, width, menuOn) => {
       xsm: '2.5rem',
       sm: '3rem',
       med: '3.75rem',
-      big: '5rem',
+      big: '5rem'
     },
-    ...(menuOn && !isIOS && { overflow: 'hidden' }),
+    ...(menuOn && !isIOS && { overflow: 'hidden' })
   };
 };
 

@@ -1,15 +1,40 @@
-import React, { useState } from 'react';
+import React, { createContext, useReducer } from 'react';
+import { actionTypes } from './actions';
 
-export const AppContext = React.createContext([{}, () => {}]);
+const initialState = {
+  toggleMenuState: null,
+  visibleHeader: undefined
+};
+
+export const AppContext = createContext(initialState);
 
 const AppProvider = ({ children }) => {
-  const [state, setState] = useState({
-    toggleMenuState: null,
-    visible: undefined
-  });
+  let newState;
+  const [state, dispatch] = useReducer((state, action) => {
+    switch (action.type) {
+      case actionTypes.toggleMenuState:
+        newState = {
+          ...state,
+          toggleMenuState: action.value
+        };
+
+        return newState;
+
+      case actionTypes.visibleHeader:
+        newState = {
+          ...state,
+          visibleHeader: action.value
+        };
+
+        return newState;
+
+      default:
+        return state;
+    }
+  }, initialState);
 
   return (
-    <AppContext.Provider value={[state, setState]}>
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

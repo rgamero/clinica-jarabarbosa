@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { useRef } from 'react';
 
 // Utils
 import Container from '../utils/Container';
@@ -19,7 +19,7 @@ const IndexPage = () => {
   const sect4 = useRef(null);
 
   return (
-    <Fragment>
+    <>
       <SEO title="Home" />
       <Layout forwardRefS2={sect2} forwardRefS3={sect3} forwardRefS4={sect4}>
         <Section>
@@ -31,7 +31,7 @@ const IndexPage = () => {
         <Services forwardRef={sect3} />
         <Contact forwardRef={sect4} />
       </Layout>
-    </Fragment>
+    </>
   );
 };
 

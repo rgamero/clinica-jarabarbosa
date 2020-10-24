@@ -2,9 +2,10 @@ import { useEffect, useContext } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { AppContext } from '../context';
+import { toggleMenuState } from '../context/actions';
 
 const useLinkClick = ref => {
-  const [state, setState] = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
 
   useEffect(() => {
     if (typeof window !== `undefined`) {
@@ -15,10 +16,7 @@ const useLinkClick = ref => {
 
   // Link Scroll Handler
   const toScroll = () => {
-    setState(state => ({
-      ...state,
-      toggleMenuState: 'off'
-    }));
+    dispatch(toggleMenuState('off'));
 
     gsap.to(window, {
       duration: 0.8,

@@ -2,21 +2,22 @@ import { useContext } from 'react';
 import { AppContext } from '../context';
 import useScrollPosition from './useScrollPosition';
 import useDetectUserAgent from './useDetectUserAgent';
+import { visibleHeader } from '../context/actions';
 
 const useHideHeader = () => {
-  const [state, setState] = useContext(AppContext);
+  const { state, dispatch } = useContext(AppContext);
   const { isMobile } = useDetectUserAgent();
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const visible = prevPos.y > currPos.y || isMobile;
-      setState(state => ({ ...state, visible }));
+      dispatch(visibleHeader(visible));
     },
     [isMobile]
   );
 
   return {
-    visible: state.visible
+    visibleHeader: state.visibleHeader
   };
 };
 

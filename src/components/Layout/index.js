@@ -61,7 +61,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
 
   // Custom Hooks
   const { height, width } = useWindowSize();
-  const { visible } = useHideHeader();
+  const { visibleHeader } = useHideHeader();
   const { toggleMenuState, handleMenuToggle } = useToggleMenu();
   const { isIOS } = useDetectUserAgent();
   const [rectS2, refS2] = useClientRect(forwardRefS2);
@@ -165,7 +165,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
         setBgAnim(null);
       }
     },
-    [height]
+    [height, rectS3, rectS4]
   );
 
   return (
@@ -184,7 +184,7 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
           <>
             <GlobalStyle />
             <Background bgAnim={bgAnim} />
-            <HeaderContainer visible={visible}>
+            <HeaderContainer visible={visibleHeader}>
               <HeaderBg bgAnim={bgAnim} />
               <Header
                 siteTitle={data.site.siteMetadata.title}
