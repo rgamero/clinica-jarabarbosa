@@ -15,12 +15,13 @@ const getScrollPosition = ({ element, useWindow }) => {
 
 const useScrollPosition = (effect, deps, element, useWindow, wait) => {
   const position = useRef(getScrollPosition({ useWindow }));
+  const pageYOffset = isBrowser ? window.pageYOffset : null;
 
   let throttleTimeout = null;
 
   const callBack = () => {
     const currPos = getScrollPosition({ element, useWindow });
-    effect({ prevPos: position.current, currPos });
+    effect({ prevPos: position.current, currPos, pageYOffset });
     position.current = currPos;
     throttleTimeout = null;
   };

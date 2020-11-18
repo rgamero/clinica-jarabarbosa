@@ -46,13 +46,17 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "build": "npm run clean && npm run fonts:fetch && gatsby build",
+    "build:local": "npm run clean && npm run fonts:fetch-local && gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write src/**/*.{js,jsx}",
-    "start": "npm run develop",
-    "serve": "gatsby build && gatsby serve",
+    "start": "npm run clean && npm run fonts:fetch-local && npm run develop",
+    "serve": "npm run build:local && gatsby serve",
     "lint": "eslint src -c .eslintrc.js --ext js,jsx",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\"",
+    "fonts:fetch": "wget -O fonts.zip $GATSBY_FONTS_CDN && unzip fonts.zip -d ./static/fonts && rm fonts.zip",
+    "fonts:fetch-local": "wget -O fonts.zip $(grep GATSBY_FONTS_CDN .env.development | cut -d '=' -f2) && unzip fonts.zip -d ./static/fonts && rm fonts.zip"
   },
   "repository": {
     "type": "git",

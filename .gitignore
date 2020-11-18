@@ -34,6 +34,7 @@ build/Release
 
 # Assets directories
 src/assets/
+static/fonts
 
 # Dependency directories
 node_modules/
@@ -60,6 +61,8 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.development
+.env.production
 
 # gatsby files
 .cache/

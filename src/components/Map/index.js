@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import L from 'leaflet';
 import { Circle, Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import PlaceholderIcon from '../../assets/images/placeholder.svg';
+import PlaceholderIcon from '../../../static/images/placeholder.svg';
 
 let pointerIcon;
 const position = [4.6434, -74.0744];

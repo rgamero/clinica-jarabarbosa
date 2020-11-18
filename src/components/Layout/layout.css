@@ -2,19 +2,19 @@
   font-family: 'Coco Reg';
   font-style: normal;
   font-weight: normal;
-  src: url('../../assets/fonts/CocoGothic.woff') format('woff'),
-  url('../../assets/fonts/CocoGothic.ttf') format('truetype'),
-  url('../../assets/fonts/CocoGothic.eot') format('embedded-opentype'),
-  url('../../assets/fonts/CocoGothic.svg') format('svg'); /* Legacy iOS */
+  src: url('/fonts/CocoGothic.woff') format('woff'),
+  url('/fonts/CocoGothic.ttf') format('truetype'),
+  url('/fonts/CocoGothic.eot') format('embedded-opentype'),
+  url('/fonts/CocoGothic.svg') format('svg'); /* Legacy iOS */
 }
 @font-face {
   font-family: 'Coco Bold';
   font-style: normal;
   font-weight: bold;
-  src: url('../../assets/fonts/CocoGothic-Bold.woff') format('woff'),
-  url('../../assets/fonts/CocoGothic-Bold.ttf') format('truetype'),
-  url('../../assets/fonts/CocoGothic-Bold.eot') format('embedded-opentype'),
-  url('../../assets/fonts/CocoGothic-Bold.svg') format('svg'); /* Legacy iOS */
+  src: url('/fonts/CocoGothic-Bold.woff') format('woff'),
+  url('/fonts/CocoGothic-Bold.ttf') format('truetype'),
+  url('/fonts/CocoGothic-Bold.eot') format('embedded-opentype'),
+  url('/fonts/CocoGothic-Bold.svg') format('svg'); /* Legacy iOS */
 }
 
 * {

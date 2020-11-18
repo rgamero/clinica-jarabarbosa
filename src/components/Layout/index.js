@@ -156,10 +156,13 @@ const Layout = ({ children, forwardRefS2, forwardRefS3, forwardRefS4 }) => {
   }, [menuOn]);
 
   useScrollPosition(
-    ({ currPos }) => {
+    ({ currPos, pageYOffset }) => {
       if (currPos.y >= 0 && currPos.y <= height) {
         setBgAnim(null);
-      } else if (currPos.y > rectS3.y && currPos.y <= rectS4.y) {
+      } else if (
+        currPos.y > rectS3.y + pageYOffset &&
+        currPos.y <= rectS4.y + pageYOffset
+      ) {
         setBgAnim('bgAnim');
       } else {
         setBgAnim(null);

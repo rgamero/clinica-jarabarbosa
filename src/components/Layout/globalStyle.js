@@ -36,12 +36,12 @@ export const HeaderBg = styled.div`
   &::before {
     content: '';
     position: absolute;
-    will-change: opacity;
     width: 100%;
     height: 100%;
     background-color: #ffbbb6;
     opacity: 0;
     transition: opacity 0.5s ease-out;
+    will-change: opacity;
     ${props =>
       props.bgAnim === 'bgAnim' &&
       css`
@@ -60,12 +60,12 @@ export const Background = styled.div`
   &::before {
     content: '';
     position: absolute;
-    will-change: opacity;
     width: 100%;
     height: 100%;
     background-color: #ffbbb6;
     opacity: 0;
     transition: opacity 0.5s ease-out;
+    will-change: opacity;
     ${props =>
       props.bgAnim === 'bgAnim' &&
       css`

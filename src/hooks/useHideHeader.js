@@ -17,7 +17,7 @@ const useHideHeader = () => {
   );
 
   return {
-    visibleHeader: state.visibleHeader
+    visibleHeader: state?.visibleHeader
   };
 };
 

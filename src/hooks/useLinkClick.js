@@ -27,7 +27,7 @@ const useLinkClick = ref => {
   };
 
   return {
-    toggleMenuState: state.toggleMenuState,
+    toggleMenuState: state?.toggleMenuState,
     toScroll
   };
 };

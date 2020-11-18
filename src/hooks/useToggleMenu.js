@@ -15,7 +15,7 @@ const useToggleMenu = () => {
   };
 
   return {
-    toggleMenuState: state.toggleMenuState,
+    toggleMenuState: state?.toggleMenuState,
     handleMenuToggle
   };
 };

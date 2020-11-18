@@ -1,3 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
+});
+
 module.exports = {
   siteMetadata: {
     title: `Jara & Barbosa`,
@@ -31,7 +36,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`
+        path: `${__dirname}/static/images/`
       }
     },
     {
@@ -43,7 +48,7 @@ module.exports = {
         background_color: `#fcece9`,
         theme_color: `#9b4091`,
         display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png` // This path is relative to the root of the site.
+        icon: `static/images/gatsby-icon.png` // This path is relative to the root of the site.
       }
     }
     // this (optional) plugin enables Progressive Web App + Offline functionality
