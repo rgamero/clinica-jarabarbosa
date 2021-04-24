@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import L from 'leaflet';
-import { Circle, Map, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Circle, MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import PlaceholderIcon from '../../../static/images/placeholder.svg';
 
 let pointerIcon;
@@ -20,7 +20,12 @@ export default class LeafletMap extends PureComponent {
   render() {
     if (typeof window !== 'undefined') {
       return (
-        <Map center={position} zoom={17} scrollWheelZoom={false} maxZoom={19}>
+        <MapContainer
+          center={position}
+          zoom={17}
+          scrollWheelZoom={false}
+          maxZoom={19}
+        >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
@@ -32,7 +37,7 @@ export default class LeafletMap extends PureComponent {
               Calle 53b #24-80 <br /> Consultorio 605
             </Popup>
           </Marker>
-        </Map>
+        </MapContainer>
       );
     }
     return null;

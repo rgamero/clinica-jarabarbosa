@@ -35,6 +35,7 @@ build/Release
 # Assets directories
 src/assets/
 static/fonts
+fonts.zip
 
 # Dependency directories
 node_modules/
